@@ -229,10 +229,19 @@
     <script>
         function userApp() {
             return {
-                users: [
-                    { firstName: 'John', lastName: 'Doe', email: 'johndoe@gmail.com', mobile: '+91 97015 97015', role: 'Admin' },
-                    { firstName: 'Jane', lastName: 'Doe', email: 'janedoe@gmail.com', mobile: '+91 97015 97016', role: 'User' }
-                ],
+                 users = [
+    { firstName: 'John', lastName: 'Doe', email: 'johndoe@gmail.com', mobile: '+91 97015 97015', role: 'Admin' },
+    { firstName: 'Jane', lastName: 'Doe', email: 'janedoe@gmail.com', mobile: '+91 97015 97016', role: 'User' },
+    { firstName: 'Alice', lastName: 'Smith', email: 'alicesmith@gmail.com', mobile: '+91 97015 97017', role: 'User' },
+    { firstName: 'Bob', lastName: 'Johnson', email: 'bobjohnson@gmail.com', mobile: '+91 97015 97018', role: 'User' },
+    { firstName: 'Charlie', lastName: 'Brown', email: 'charliebrown@gmail.com', mobile: '+91 97015 97019', role: 'Admin' },
+    { firstName: 'David', lastName: 'Wilson', email: 'davidwilson@gmail.com', mobile: '+91 97015 97020', role: 'User' },
+    { firstName: 'Eva', lastName: 'Green', email: 'evagreen@gmail.com', mobile: '+91 97015 97021', role: 'User' },
+    { firstName: 'Frank', lastName: 'Taylor', email: 'franktaylor@gmail.com', mobile: '+91 97015 97022', role: 'Admin' },
+    { firstName: 'Grace', lastName: 'Lee', email: 'gracelee@gmail.com', mobile: '+91 97015 97023', role: 'User' },
+    { firstName: 'Henry', lastName: 'Martinez', email: 'henrymartinez@gmail.com', mobile: '+91 97015 97024', role: 'User' }
+]
+,
                 newUser: {
                     firstName: '',
                     lastName: '',
