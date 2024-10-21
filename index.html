@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ERP System</title>
+    <script src="node_modules/pristinejs/dist/pristine.js" type="text/javascript"></script>
+    <script src="https://cdn.jsdelivr.net/npm/alpinejs@3.13.5/dist/cdn.min.js" defer></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pristinejs/1.1.0/pristine.min.js" defer></script>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+</head>
+<body class="bg-gray-50">
+    <div x-data="userApp()" class="p-8">
+        <h1 class="text-2xl font-bold mb-4">Users</h1>
+        
+        <button @click="showAddUser = true; showUserTable = false" class="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700">Add User</button>
+        
+        <div x-show="successMessage" class="mt-4 text-green-600" x-text="successMessage"></div>
+
+        <div x-show="showAddUser">
+            <h2 class="text-xl font-bold mt-4">Add User</h2>
+            <form id="addUserForm" @submit.prevent="addUser" class="mt-4">
+                <div>
+                    <label class="block">First Name:</label>
+                    <input type="text" x-model="newUser.firstName" required class="border rounded px-2 py-1 w-full" 
+                           data-pristine-required-message="First name is required" />
+                </div>
+                <div class="mt-2">
+                    <label class="block">Last Name:</label>
+                    <input type="text" x-model="newUser.lastName" required class="border rounded px-2 py-1 w-full" 
+                           data-pristine-required-message="Last name is required" />
+                </div>
+                <div class="mt-2">
+                    <label class="block">Email:</label>
+                    <input type="email" x-model="newUser.email" required class="border rounded px-2 py-1 w-full" 
+                           data-pristine-required-message="Email is required" />
+                </div>
+                <div class="mt-2">
+                    <label class="block">Mobile:</label>
+                    <input type="tel" x-model="newUser.mobile" required class="border rounded px-2 py-1 w-full" 
+                           data-pristine-required-message="Mobile number is required" />
+                </div>
+                <div class="mt-2">
+                    <label class="block">Role:</label>
+                    <select x-model="newUser.role" required class="border rounded px-2 py-1 w-full" 
+                            data-pristine-required-message="Role is required">
+                        <option value="">Select Role</option>
+                        <option value="Admin">Admin</option>
+                        <option value="User">User</option>
+                        <option value="Manager">Manager</option>
+                    </select>
+                </div>
+                <div class="mt-2">
+                    <button type="submit" class="mt-4 px-4 py-2 bg-green-600 text-white rounded-lg">Save</button>
+                    <button type="button" @click="showAddUser = false; showUserTable = true" class="mt-4 px-4 py-2 bg-red-600 text-white rounded-lg">Cancel</button>
+                </div>
+            </form>
+        </div>
+
+        <div x-show="showUserTable" class="mt-6">
+            <table class="w-full">
+                <thead>
+                    <tr>
+                        <th class="border px-4 py-2">First Name</th>
+                        <th class="border px-4 py-2">Last Name</th>
+                        <th class="border px-4 py-2">Email</th>
+                        <th class="border px-4 py-2">Mobile</th>
+                        <th class="border px-4 py-2">Role</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <template x-for="user in users" :key="user.email">
+                        <tr>
+                            <td class="border px-4 py-2" x-text="user.firstName"></td>
+                            <td class="border px-4 py-2" x-text="user.lastName"></td>
+                            <td class="border px-4 py-2" x-text="user.email"></td>
+                            <td class="border px-4 py-2" x-text="user.mobile"></td>
+                            <td class="border px-4 py-2" x-text="user.role"></td>
+                        </tr>
+                    </template>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <script>
+        function userApp() {
+            return {
+                users: [
+                    { firstName: 'John', lastName: 'Doe', email: 'johndoe@gmail.com', mobile: '+91 97015 97015', role: 'Admin' },
+                    { firstName: 'Jane', lastName: 'Doe', email: 'janedoe@gmail.com', mobile: '+91 97015 97016', role: 'User' }
+                ],
+                newUser: {
+                    firstName: '',
+                    lastName: '',
+                    email: '',
+                    mobile: '',
+                    role: ''
+                },
+                showAddUser: false,
+                showUserTable: true, 
+                successMessage: '',
+                addUser() {
+                    const pristine = new Pristine(document.getElementById('addUserForm'));
+                    if (pristine.validate()) {
+                        this.users.push({ ...this.newUser });
+                        this.successMessage = 'User added successfully!';
+                        this.resetForm();
+                        setTimeout(() => { this.successMessage = ''; }, 3000);
+                    }
+                },
+                resetForm() {
+                    this.newUser = { firstName: '', lastName: '', email: '', mobile: '', role: '' };
+                    this.showAddUser = false;
+                    this.showUserTable = true; 
+                }
+            }
+        }
+    </script>
+</body>
+</html>
