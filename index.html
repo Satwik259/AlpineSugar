@@ -1,5 +1,7 @@
+
+
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" class="h-full">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -8,79 +10,220 @@
     <script src="https://cdn.jsdelivr.net/npm/alpinejs@3.13.5/dist/cdn.min.js" defer></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/pristinejs/1.1.0/pristine.min.js" defer></script>
     <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/preline@1.9.0/dist/preline.min.js"></script>
 </head>
-<body class="bg-gray-50">
-    <div x-data="userApp()" class="p-8">
-        <h1 class="text-2xl font-bold mb-4">Users</h1>
-        
-        <button @click="showAddUser = true; showUserTable = false" class="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700">Add User</button>
-        
-        <div x-show="successMessage" class="mt-4 text-green-600" x-text="successMessage"></div>
-
-        <div x-show="showAddUser">
-            <h2 class="text-xl font-bold mt-4">Add User</h2>
-            <form id="addUserForm" @submit.prevent="addUser" class="mt-4">
-                <div>
-                    <label class="block">First Name:</label>
-                    <input type="text" x-model="newUser.firstName" required class="border rounded px-2 py-1 w-full" 
-                           data-pristine-required-message="First name is required" />
-                </div>
-                <div class="mt-2">
-                    <label class="block">Last Name:</label>
-                    <input type="text" x-model="newUser.lastName" required class="border rounded px-2 py-1 w-full" 
-                           data-pristine-required-message="Last name is required" />
-                </div>
-                <div class="mt-2">
-                    <label class="block">Email:</label>
-                    <input type="email" x-model="newUser.email" required class="border rounded px-2 py-1 w-full" 
-                           data-pristine-required-message="Email is required" />
-                </div>
-                <div class="mt-2">
-                    <label class="block">Mobile:</label>
-                    <input type="tel" x-model="newUser.mobile" required class="border rounded px-2 py-1 w-full" 
-                           data-pristine-required-message="Mobile number is required" />
-                </div>
-                <div class="mt-2">
-                    <label class="block">Role:</label>
-                    <select x-model="newUser.role" required class="border rounded px-2 py-1 w-full" 
-                            data-pristine-required-message="Role is required">
-                        <option value="">Select Role</option>
-                        <option value="Admin">Admin</option>
-                        <option value="User">User</option>
-                        <option value="Manager">Manager</option>
-                    </select>
-                </div>
-                <div class="mt-2">
-                    <button type="submit" class="mt-4 px-4 py-2 bg-green-600 text-white rounded-lg">Save</button>
-                    <button type="button" @click="showAddUser = false; showUserTable = true" class="mt-4 px-4 py-2 bg-red-600 text-white rounded-lg">Cancel</button>
-                </div>
-            </form>
+<body class="bg-gray-50 flex h-full" x-data="userApp()">
+    <div class="flex flex-col flex-shrink-0 w-64 bg-white border-r border-gray-200">
+        <div class="flex items-center h-16 border-b border-gray-200 px-6">
+            <span class="text-2xl font-bold text-blue-600">ERP</span>
         </div>
+        <nav class="flex-grow py-4">
+            <ul class="space-y-1 px-3">
+                <li>
+                    <a href="#" class="flex items-center gap-x-3.5 py-2 px-2.5 text-sm text-slate-700 rounded-md hover:bg-gray-100">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <rect x="3" y="3" width="18" height="18" rx="2" ry="2"/>
+                            <line x1="3" y1="9" x2="21" y2="9"/>
+                            <line x1="9" y1="21" x2="9" y2="9"/>
+                        </svg>
+                        Dashboard
+                    </a>
+                </li>
+                <li>
+                    <a href="#" class="flex items-center gap-x-3.5 py-2 px-2.5 bg-gray-100 text-sm text-slate-700 rounded-md hover:bg-gray-100">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/>
+                            <circle cx="9" cy="7" r="4"/>
+                            <path d="M23 21v-2a4 4 0 0 0-3-3.87"/>
+                            <path d="M16 3.13a4 4 0 0 1 0 7.75"/>
+                        </svg>
+                        Users
+                    </a>
+                </li>
+                <li>
+                    <a href="#" class="flex items-center gap-x-3.5 py-2 px-2.5 text-sm text-slate-700 rounded-md hover:bg-gray-100">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <polyline points="22 12 16 12 14 15 10 15 8 12 2 12"/>
+                            <path d="M5.45 5.11L2 12v6a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2v-6l-3.45-6.89A2 2 0 0 0 16.76 4H7.24a2 2 0 0 0-1.79 1.11z"/>
+                        </svg>
+                        Routes
+                    </a>
+                </li>
+                <li>
+                    <a href="#" class="flex items-center gap-x-3.5 py-2 px-2.5 text-sm text-slate-700 rounded-md hover:bg-gray-100">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <rect x="3" y="3" width="18" height="18" rx="2" ry="2"/>
+                            <line x1="3" y1="9" x2="21" y2="9"/>
+                            <line x1="3" y1="15" x2="21" y2="15"/>
+                            <line x1="12" y1="3" x2="12" y2="21"/>
+                        </svg>
+                        Entity
+                    </a>
+                </li>
+                <li>
+                    <a href="#" class="flex items-center gap-x-3.5 py-2 px-2.5 text-sm text-slate-700 rounded-md hover:bg-gray-100">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/>
+                            <circle cx="9" cy="7" r="4"/>
+                            <path d="M23 21v-2a4 4 0 0 0-3-3.87"/>
+                            <path d="M16 3.13a4 4 0 0 1 0 7.75"/>
+                        </svg>
+                        Employees
+                    </a>
+                </li>
+                <li>
+                    <a href="#" class="flex items-center gap-x-3.5 py-2 px-2.5 text-sm text-slate-700 rounded-md hover:bg-gray-100">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <rect x="3" y="4" width="18" height="18" rx="2" ry="2"/>
+                            <line x1="16" y1="2" x2="16" y2="6"/>
+                            <line x1="8" y1="2" x2="8" y2="6"/>
+                            <line x1="3" y1="10" x2="21" y2="10"/>
+                        </svg>
+                        Attendance
+                    </a>
+                </li>
+            </ul>
+        </nav>
+    </div>
 
-        <div x-show="showUserTable" class="mt-6">
-            <table class="w-full">
-                <thead>
-                    <tr>
-                        <th class="border px-4 py-2">First Name</th>
-                        <th class="border px-4 py-2">Last Name</th>
-                        <th class="border px-4 py-2">Email</th>
-                        <th class="border px-4 py-2">Mobile</th>
-                        <th class="border px-4 py-2">Role</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <template x-for="user in users" :key="user.email">
-                        <tr>
-                            <td class="border px-4 py-2" x-text="user.firstName"></td>
-                            <td class="border px-4 py-2" x-text="user.lastName"></td>
-                            <td class="border px-4 py-2" x-text="user.email"></td>
-                            <td class="border px-4 py-2" x-text="user.mobile"></td>
-                            <td class="border px-4 py-2" x-text="user.role"></td>
-                        </tr>
-                    </template>
-                </tbody>
-            </table>
-        </div>
+    <div class="flex-1 flex flex-col overflow-hidden">
+        <header class="flex justify-between items-center py-4 px-6 bg-white border-b border-gray-200">
+            <div class="flex items-center">
+                <button class="text-gray-500 focus:outline-none lg:hidden">
+                    <svg class="h-6 w-6" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M4 6H20M4 12H20M4 18H11" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                </button>
+            </div>
+            <div class="flex items-center">
+                <div class="relative">
+                    <button class="flex mx-4 text-gray-600 focus:outline-none">
+                        <svg class="h-6 w-6" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M15 17H20L18.5951 15.5951C18.2141 15.2141 18 14.6973 18 14.1585V11C18 8.38757 16.3304 6.16509 14 5.34142V5C14 3.89543 13.1046 3 12 3C10.8954 3 10 3.89543 10 5V5.34142C7.66962 6.16509 6 8.38757 6 11V14.1585C6 14.6973 5.78595 15.2141 5.40493 15.5951L4 17H9M15 17V18C15 19.6569 13.6569 21 12 21C10.3431 21 9 19.6569 9 18V17M15 17H9" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                        </svg>
+                    </button>
+                </div>
+                <div class="relative">
+                    <button class="relative block h-8 w-8 rounded-full overflow-hidden shadow focus:outline-none">
+                        <svg class="h-full w-full text-gray-300" viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M12 2C6.48 2 2 6.48 2 12C2 17.52 6.48 22 12 22C17.52 22 22 17.52 22 12C22 6.48 17.52 2 12 2ZM12 5C13.66 5 15 6.34 15 8C15 9.66 13.66 11 12 11C10.34 11 9 9.66 9 8C9 6.34 10.34 5 12 5ZM12 19.2C9.5 19.2 7.29 17.92 6 15.98C6.03 13.99 10 12.9 12 12.9C13.99 12.9 17.97 13.99 18 15.98C16.71 17.92 14.5 19.2 12 19.2Z"/>
+                        </svg>
+                    </button>
+                </div>
+            </div>
+        </header>
+
+        <main class="flex-1 overflow-x-hidden overflow-y-auto bg-gray-100">
+            <div class="container mx-auto px-6 py-8">
+                <h3 class="text-gray-700 text-3xl font-medium" x-text="showAddUser ? 'Add User' : 'Users'"></h3>
+
+                <div class="mt-8" x-show="!showAddUser">
+                    <button @click="showAddUser = true; showUserTable = false" class="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700">
+                        Add User
+                    </button>
+
+                    <div x-show="successMessage" class="mt-4 text-green-600" x-text="successMessage"></div>
+
+                    <div class="flex flex-col mt-6">
+                        <div class="-my-2 py-2 overflow-x-auto sm:-mx-6 sm:px-6 lg:-mx-8 lg:px-8">
+                            <div class="align-middle inline-block min-w-full shadow overflow-hidden sm:rounded-lg border-b border-gray-200">
+                                <table class="min-w-full">
+                                    <thead>
+                                        <tr>
+                                            <th class="px-6 py-3 border-b border-gray-200 bg-gray-50 text-left text-xs leading-4 font-medium text-gray-500 uppercase tracking-wider">
+                                                First Name
+                                            </th>
+                                            <th class="px-6 py-3 border-b border-gray-200 bg-gray-50 text-left text-xs leading-4 font-medium text-gray-500 uppercase tracking-wider">
+                                                Last Name
+                                            </th>
+                                            <th class="px-6 py-3 border-b border-gray-200 bg-gray-50 text-left text-xs leading-4 font-medium text-gray-500 uppercase tracking-wider">
+                                                Email
+                                            </th>
+                                            <th class="px-6 py-3 border-b border-gray-200 bg-gray-50 text-left text-xs leading-4 font-medium text-gray-500 uppercase tracking-wider">
+                                                Mobile
+                                            </th>
+                                            <th class="px-6 py-3 border-b border-gray-200 bg-gray-50 text-left text-xs leading-4 font-medium text-gray-500 uppercase tracking-wider">
+                                                Role
+                                            </th>
+                                        </tr>
+                                    </thead>
+                                    <tbody class="bg-white">
+                                        <template x-for="user in users" :key="user.email">
+                                            <tr>
+                                                <td class="px-6 py-4 whitespace-no-wrap border-b border-gray-200">
+                                                    <div class="text-sm leading-5 font-medium text-gray-900" x-text="user.firstName"></div>
+                                                </td>
+                                                <td class="px-6 py-4 whitespace-no-wrap border-b border-gray-200">
+                                                    <div class="text-sm leading-5 text-gray-900" x-text="user.lastName"></div>
+                                                </td>
+                                                <td class="px-6 py-4 whitespace-no-wrap border-b border-gray-200">
+                                                    <div class="text-sm leading-5 text-gray-900" x-text="user.email"></div>
+                                                </td>
+                                                <td class="px-6 py-4 whitespace-no-wrap border-b border-gray-200">
+
+                                                    <div class="text-sm leading-5 text-gray-900" x-text="user.mobile"></div>
+                                                </td>
+                                                <td class="px-6 py-4 whitespace-no-wrap border-b border-gray-200">
+                                                    <div class="text-sm leading-5 text-gray-900" x-text="user.role"></div>
+                                                </td>
+                                            </tr>
+                                        </template>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div x-show="showAddUser" class="mt-8">
+                    <form id="addUserForm" @submit.prevent="addUser" class="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4">
+                        <div class="mb-4">
+                            <label class="block text-gray-700 text-sm font-bold mb-2" for="firstName">
+                                First Name
+                            </label>
+                            <input class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="firstName" type="text" x-model="newUser.firstName" required>
+                        </div>
+                        <div class="mb-4">
+                            <label class="block text-gray-700 text-sm font-bold mb-2" for="lastName">
+                                Last Name
+                            </label>
+                            <input class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="lastName" type="text" x-model="newUser.lastName" required>
+                        </div>
+                        <div class="mb-4">
+                            <label class="block text-gray-700 text-sm font-bold mb-2" for="email">
+                                Email
+                            </label>
+                            <input class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="email" type="email" x-model="newUser.email" required>
+                        </div>
+                        <div class="mb-4">
+                            <label class="block text-gray-700 text-sm font-bold mb-2" for="mobile">
+                                Mobile
+                            </label>
+                            <input class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="mobile" type="tel" x-model="newUser.mobile" required>
+                        </div>
+                        <div class="mb-4">
+                            <label class="block text-gray-700 text-sm font-bold mb-2" for="role">
+                                Role
+                            </label>
+                            <select class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="role" x-model="newUser.role" required>
+                                <option value="">Select Role</option>
+                                <option value="Admin">Admin</option>
+                                <option value="User">User</option>
+                                <option value="Manager">Manager</option>
+                            </select>
+                        </div>
+                        <div class="flex items-center justify-between">
+                            <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline" type="submit">
+                                Save
+                            </button>
+                            <button class="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline" type="button" @click="showAddUser = false; showUserTable = true">
+                                Cancel
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </main>
     </div>
 
     <script>
@@ -98,7 +241,7 @@
                     role: ''
                 },
                 showAddUser: false,
-                showUserTable: true, 
+                showUserTable: true,
                 successMessage: '',
                 addUser() {
                     const pristine = new Pristine(document.getElementById('addUserForm'));
@@ -112,10 +255,13 @@
                 resetForm() {
                     this.newUser = { firstName: '', lastName: '', email: '', mobile: '', role: '' };
                     this.showAddUser = false;
-                    this.showUserTable = true; 
+                    this.showUserTable = true;
                 }
             }
         }
     </script>
-</body>
-</html>
+</body>   
+
+
+
+                                                
