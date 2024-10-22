@@ -6,12 +6,12 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>ERP System</title>
+    <link href="https://cdn.jsdelivr.net/npm/@tailwindcss/forms@0.4.0/dist/forms.min.css" rel="stylesheet">
     <script src="node_modules/pristinejs/dist/pristine.js" type="text/javascript"></script>
     <script src="https://cdn.jsdelivr.net/npm/alpinejs@3.13.5/dist/cdn.min.js" defer></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/pristinejs/1.1.0/pristine.min.js" defer></script>
     <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
-    <script src="https://cdn.jsdelivr.net/npm/preline@1.9.0/dist/preline.min.js"></script>
-</head>
+    <link href="https://cdn.jsdelivr.net/npm/preline@latest/dist/preline.min.css" rel="stylesheet"></head>
 <body class="bg-gray-50 flex h-full" x-data="userApp()">
     <div class="flex flex-col flex-shrink-0 w-64 bg-white border-r border-gray-200">
         <div class="flex items-center h-16 border-b border-gray-200 px-6">
@@ -96,15 +96,15 @@
                 </button>
             </div>
             <div class="flex items-center">
-                <div class="relative">
+                <div >
                     <button class="flex mx-4 text-gray-600 focus:outline-none">
                         <svg class="h-6 w-6" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                             <path d="M15 17H20L18.5951 15.5951C18.2141 15.2141 18 14.6973 18 14.1585V11C18 8.38757 16.3304 6.16509 14 5.34142V5C14 3.89543 13.1046 3 12 3C10.8954 3 10 3.89543 10 5V5.34142C7.66962 6.16509 6 8.38757 6 11V14.1585C6 14.6973 5.78595 15.2141 5.40493 15.5951L4 17H9M15 17V18C15 19.6569 13.6569 21 12 21C10.3431 21 9 19.6569 9 18V17M15 17H9" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
                         </svg>
                     </button>
                 </div>
-                <div class="relative">
-                    <button class="relative block h-8 w-8 rounded-full overflow-hidden shadow focus:outline-none">
+                <div >
+                    <button class=" block h-8 w-8 rounded-full overflow-hidden shadow focus:outline-none">
                         <svg class="h-full w-full text-gray-300" viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
                             <path d="M12 2C6.48 2 2 6.48 2 12C2 17.52 6.48 22 12 22C17.52 22 22 17.52 22 12C22 6.48 17.52 2 12 2ZM12 5C13.66 5 15 6.34 15 8C15 9.66 13.66 11 12 11C10.34 11 9 9.66 9 8C9 6.34 10.34 5 12 5ZM12 19.2C9.5 19.2 7.29 17.92 6 15.98C6.03 13.99 10 12.9 12 12.9C13.99 12.9 17.97 13.99 18 15.98C16.71 17.92 14.5 19.2 12 19.2Z"/>
                         </svg>
@@ -225,8 +225,8 @@
             </div>
         </main>
     </div>
-
-    <script>
+    <script src="https://cdn.jsdelivr.net/npm/preline@latest/dist/preline.js"></script>
+    <!-- <script>
         function userApp() {
             return {
                  users : [
@@ -264,7 +264,46 @@
                 }
             }
         }
+    </script> -->
+    <script>
+        function userApp() {
+            return {
+                users: [
+                    { firstName: 'John', lastName: 'Doe', email: 'johndoe@gmail.com', mobile: '+91 97015 97015', role: 'Admin' },
+                    { firstName: 'Jane', lastName: 'Doe', email: 'janedoe@gmail.com', mobile: '+91 97015 97016', role: 'User' },
+                    { firstName: 'Alice', lastName: 'Smith', email: 'alicesmith@gmail.com', mobile: '+91 97015 97017', role: 'User' },
+                    { firstName: 'Bob', lastName: 'Johnson', email: 'bobjohnson@gmail.com', mobile: '+91 97015 97018', role: 'User' },
+                    { firstName: 'Charlie', lastName: 'Brown', email: 'charliebrown@gmail.com', mobile: '+91 97015 97019', role: 'Admin' },
+                    { firstName: 'David', lastName: 'Wilson', email: 'davidwilson@gmail.com', mobile: '+91 97015 97020', role: 'User' },
+                ],
+                newUser: {
+                    firstName: '',
+                    lastName: '',
+                    email: '',
+                    mobile: '',
+                    role: ''
+                },
+                showAddUser: false,
+                showUserTable: true,
+                successMessage: '',
+                addUser() {
+                    const pristine = new Pristine(document.getElementById('addUserForm'));
+                    if (pristine.validate()) {
+                        this.users.push({ ...this.newUser });
+                        this.successMessage = 'User added successfully!';
+                        this.resetForm();
+                        setTimeout(() => { this.successMessage = ''; }, 3000);
+                    }
+                },
+                resetForm() {
+                    this.newUser = { firstName: '', lastName: '', email: '', mobile: '', role: '' };
+                    this.showAddUser = false;
+                    this.showUserTable = true;
+                }
+            }
+        }
     </script>
+    
 </body>   
 
 
